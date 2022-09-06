@@ -9,7 +9,7 @@ logo = """
   |_|  |___|/_/\_\  |_|      |_|    \___/  |_|  |_| \___/ |_|_\|___/|___| 
                                                                           
 """
-# Create a Dictionary of Morse codes
+# Create a dictionary of Morse codes
 MORSE_CODE_DICT = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..',
                    'E': '.', 'F': '..-.', 'G': '--.', 'H': '....',
                    'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
@@ -22,23 +22,34 @@ MORSE_CODE_DICT = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..',
                    ', ': '--..--', '.': '.-.-.-', '?': '..--..', '/': '-..-.',
                    '-': '-....-', '(': '-.--.', ')': '-.--.-'}
 app_is_on = True
+
+
+# Check for invalid characters
+def check_chars(text):
+    for ch in text:
+        if ch != " " and ch not in MORSE_CODE_DICT:
+            print("Please enter only english alphabet and numbers.")
+            return False
+    return True
+
+
 print(logo)
 print("Welcome to text to morse code convertor.\n"
       "Please type your message to convert of type 'exit' to close the app.")
 while app_is_on:
     # Get input form user
-    text = input("Please write your message:\n").upper()
-    if text == "EXIT":
+    message = input("Please write your message:\n").upper()
+    if message == "EXIT":
         app_is_on = False
         break
-    # Convert each char to a morse code
+
     morse_output = ""
-    for char in text:
-        if char == " ":
-            morse_output += " / "
-        else:
-            morse_output += MORSE_CODE_DICT[char] + " "
-
-    # print output
-    print(morse_output)
-
+    if check_chars(message):
+        # Convert each char to a morse code
+        for char in message:
+            if char == " ":
+                morse_output += " / "
+            else:
+                morse_output += MORSE_CODE_DICT[char] + " "
+        # print output
+        print(morse_output)
